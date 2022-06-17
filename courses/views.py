@@ -12,9 +12,7 @@ from django.apps import apps
 from .models import Course, Module, Content
 from django.shortcuts import render
 
-def index(request):
-    name = "Wojtek"
-    return render(request, "index.html", {"name": name})
+
 
 class OwnerMixin(object):
     def get_queryset(self):
