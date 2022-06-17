@@ -10,9 +10,11 @@ from django.forms.models import modelform_factory
 from django.apps import apps
 # from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from .models import Course, Module, Content
+from django.shortcuts import render
 
 def index(request):
-    return "Hello World"
+    name = "Wojtek"
+    return render(request, "index.html", {"name": name})
 
 class OwnerMixin(object):
     def get_queryset(self):
