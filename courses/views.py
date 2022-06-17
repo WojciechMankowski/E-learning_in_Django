@@ -11,7 +11,7 @@ from django.apps import apps
 # from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from .models import Course, Module, Content
 
-def index():
+def index(request):
     return "Hello World"
 
 class OwnerMixin(object):
