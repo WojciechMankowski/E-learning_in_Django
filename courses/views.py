@@ -1,5 +1,6 @@
+from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from django.urls import reverse_lazy
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, \
@@ -9,8 +10,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, \
 from django.forms.models import modelform_factory
 from django.apps import apps
 # from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
+from .forms import ModuleFormSet
 from .models import Course, Module, Content
-from django.shortcuts import render
 
 
 
@@ -111,10 +112,13 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
             self.obj = get_object_or_404(self.model,
                                          id=id,
                                          owner=request.user)
-        return super().dispatch(request, module_id, model_name, id)
+        return  super().dispatch(request, module_id, model_name, id)
 
     def get(self, request, module_id, model_name, id=None):
         form = self.get_form(self.model, instance=self.obj)
+        # form = ModuleFormSet()
+        print("GETS")
+        print(form)
         return self.render_to_response({'form': form,
                                         'object': self.obj})
 
@@ -159,9 +163,7 @@ class ModuleContentListView(TemplateResponseMixin, View):
         return self.render_to_response({'module': module})
 
 
-class ModuleOrderView(
-    # CsrfExemptMixin,
-                      # JsonRequestResponseMixin,
+class ModuleOrderView(CsrfExemptMixin, JsonRequestResponseMixin,
                       View):
     def post(self, request):
         for id, order in self.request_json.items():
@@ -170,10 +172,7 @@ class ModuleOrderView(
         return self.render_json_response({'saved': 'OK'})
 
 
-class ContentOrderView(
-    # CsrfExemptMixin,
-                       # JsonRequestResponseMixin,
-                       View):
+class ContentOrderView(CsrfExemptMixin,JsonRequestResponseMixin,View):
     def post(self, request):
         for id, order in self.request_json.items():
             Content.objects.filter(id=id,

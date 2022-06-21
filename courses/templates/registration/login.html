@@ -2,17 +2,18 @@
 {% block title %}Log-in{% endblock %}
 
 {% block content %}
-<h1>Log-in</h1>
+<h1>Zalogu się</h1>
 <div class="module">
   {% if form.errors %}
-  <p>Your username and password didn't match. Please try again.</p>
+  <p>Twoja nazwa użytkownika i hasło nie pasują. Proszę spróbuj ponownie.</p>
   {% else %}
-  <p>Please, use the following form to log-in:</p>
+  <p>Proszę skorzystać z poniższego formularza do logowania:</p>
   {% endif %}
   <div class="login-form">
-    <form action="{% url 'login' %}"  post="POST">
-      {{ form.as_p }}
+    <form action="{% url 'login' %}"  method="POST">
       {% csrf_token %}
+        {{ form.as_p }}
+
       <input type="hidden" name="next" value="{{ next }}" />
       <p><input type="submit" value="Zaloguj się" /></p>
     </form>

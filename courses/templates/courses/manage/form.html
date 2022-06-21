@@ -19,9 +19,10 @@ Utwórz nowy kurs
 <div class="module">
   <h2>Informacje o kursie</h2>
   <form method="post">
-    {{ form.as_p }}
     {% csrf_token %}
-    <p><input type="submit'value=" Save course"></p>
+    {{ form.as_p }}
+
+    <p><input type="submit" value=" Save course"></p>
   </form>
 </div>
 {% endblock %}

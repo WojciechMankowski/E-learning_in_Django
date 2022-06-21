@@ -1,11 +1,13 @@
 from django.contrib import admin
-from .models import Subject, Course, Module
+from .models import Subject, Course, Module,Content
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug']
     prepopulated_fields = {'slug': ('title',)}
 
+
+admin.site.register(Content)
 
 class ModuleInline(admin.StackedInline):
     model = Module

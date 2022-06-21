@@ -9,12 +9,14 @@
   {% for course in object_list %}
   <div class="course-info">
     <h3>{{ course.title }}</h3>
+  {{ object_list  }}
     <p>
-      <a href="{% url " course_edit'course.id %}">Edytuj</a>
-      <a href="{% url " course_delete'course.id %}">Usuń</a>
-      <a href="{% url " course_module_update'course.id %}">Edytuj moduł </a>
+      <a href="{% url 'course_edit' course.id %}">Edytuj</a>
+      <a href="{% url 'course_delete'course.id %}">Usuń</a>
+      <a href="{% url 'course_module_update' course.id %}">Edytuj moduł </a>
+    {{ course.modules.count  }}
       {% if course.modules.count > 0 %}
-      <a href="{% url " module_content_list'course.modules.first.id %}">
+      <a href="{% url 'module_content_list' course.modules.first.id %}">
         Zarządzaj zawartością</a>
       {% endif %}
     </p>
