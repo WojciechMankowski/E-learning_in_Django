@@ -8,5 +8,6 @@ urlpatterns = [
     path('accounts/profile/', ManageCourseListView.as_view()),
     path("course/", include("courses.urls")),
     path('admin/', admin.site.urls),
+    path('students/', include('students.urls')),
     path("", CourseListView.as_view(), name="courses_list")
 ]
