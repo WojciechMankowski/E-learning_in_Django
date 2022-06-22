@@ -12,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, \
 from django.forms.models import modelform_factory
 from django.apps import apps
 # from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
+from students.forms import CourseEnrollForm
 from .forms import ModuleFormSet
 from .models import Course, Module, Content, Subject
 
@@ -205,8 +206,8 @@ class CourseDetailView(DetailView):
     model = Course
     template_name = 'courses/course/detail.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['enroll_form'] = CourseEnrollForm(
-    #                                initial={'course':self.object})
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['enroll_form'] = CourseEnrollForm(
+                                   initial={'course':self.object})
+        return context
