@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block title %}Usuń kurs{% endblock %}
 
@@ -9,7 +9,7 @@
   <form method="post">
     {% csrf_token %}
     <p>Czy na pewno chcesz usunąć "{{ object.title }}"?</p>
-    <input type="submit" value=" Potwierdzać">
+    <input type="submit" value="Zatwierdź">
   </form>
 </div>
 {% endblock %}

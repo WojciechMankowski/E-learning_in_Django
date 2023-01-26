@@ -262,7 +262,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 		deep = false;
 
 	// Handle a deep copy situation
-	if ( typeof target === "boolean" ) {
+	if ( typeof target === 'boolean" ) {
 		deep = target;
 
 		// Skip the boolean and the target
@@ -499,7 +499,7 @@ if ( typeof Symbol === "function" ) {
 }
 
 // Populate the class2type map
-jQuery.each( "Boolean Number String Function Array Date RegExp Object Error Symbol".split( " " ),
+jQuery.each( 'boolean Number String Function Array Date RegExp Object Error Symbol".split( " " ),
 	function( _i, name ) {
 		class2type[ "[object " + name + "]" ] = name.toLowerCase();
 	} );
@@ -649,7 +649,7 @@ var i,
 		"CHILD": new RegExp( "^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" +
 			whitespace + "*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" +
 			whitespace + "*(\\d+)|))" + whitespace + "*\\)|)", "i" ),
-		"bool": new RegExp( "^(?:" + booleans + ")$", "i" ),
+		'bool": new RegExp( "^(?:" + booleans + ")$", "i" ),
 
 		// For use in libraries implementing .is()
 		// We use this for POS matching in `select`
@@ -1012,7 +1012,7 @@ function createInputPseudo( type ) {
 function createButtonPseudo( type ) {
 	return function( elem ) {
 		var name = elem.nodeName.toLowerCase();
-		return ( name === "input" || name === "button" ) && elem.type === type;
+		return ( name === "input" || name === 'button" ) && elem.type === type;
 	};
 }
 
@@ -2232,9 +2232,9 @@ Expr = Sizzle.selectors = {
 			return rinputs.test( elem.nodeName );
 		},
 
-		"button": function( elem ) {
+		'button": function( elem ) {
 			var name = elem.nodeName.toLowerCase();
-			return name === "input" && elem.type === "button" || name === "button";
+			return name === "input" && elem.type === 'button" || name === 'button";
 		},
 
 		"text": function( elem ) {
@@ -4696,7 +4696,7 @@ var pnum = ( /[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/ ).source;
 var rcssNum = new RegExp( "^(?:([+-])=|)(" + pnum + ")([a-z%]*)$", "i" );
 
 
-var cssExpand = [ "Top", "Right", "Bottom", "Left" ];
+var cssExpand = [ "Top", "Right", 'bottom", "Left" ];
 
 var documentElement = document.documentElement;
 
@@ -4823,7 +4823,7 @@ function getDefaultDisplay( elem ) {
 	temp.parentNode.removeChild( temp );
 
 	if ( display === "none" ) {
-		display = "block";
+		display = 'block";
 	}
 	defaultDisplayMap[ nodeName ] = display;
 
@@ -4886,7 +4886,7 @@ jQuery.fn.extend( {
 		return showHide( this );
 	},
 	toggle: function( state ) {
-		if ( typeof state === "boolean" ) {
+		if ( typeof state === 'boolean" ) {
 			return state ? this.show() : this.hide();
 		}
 
@@ -5839,7 +5839,7 @@ jQuery.each( { focus: "focusin", blur: "focusout" }, function( type, delegateTyp
 
 			// Claim the first handler
 			// dataPriv.set( this, "focus", ... )
-			// dataPriv.set( this, "blur", ... )
+			// dataPriv.set( this, 'blur", ... )
 			leverageNative( this, type, expectSync );
 
 			// Return false to allow normal processing in the caller
@@ -6368,7 +6368,7 @@ jQuery.fn.extend( {
 jQuery.each( {
 	appendTo: "append",
 	prependTo: "prepend",
-	insertBefore: "before",
+	insertBefore: 'before",
 	insertAfter: "after",
 	replaceAll: "replaceWith"
 }, function( name, original ) {
@@ -6539,7 +6539,7 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 				trChild = document.createElement( "div" );
 
 				table.style.cssText = "position:absolute;left:-11111px;border-collapse:separate";
-				tr.style.cssText = "border:1px solid";
+				tr.style.cssText = 'border:1px solid";
 
 				// Support: Chrome 86+
 				// Height set through cssText does not get applied.
@@ -6553,7 +6553,7 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 				// which causes a problem only in Android 8 Chrome 86.
 				// Ensuring the div is display: block
 				// gets around this issue.
-				trChild.style.display = "block";
+				trChild.style.display = 'block";
 
 				documentElement
 					.appendChild( table )
@@ -6686,7 +6686,7 @@ var
 	// See here for display values: https://developer.mozilla.org/en-US/docs/CSS/display
 	rdisplayswap = /^(none|table(?!-c[ea]).+)/,
 	rcustomProp = /^--/,
-	cssShow = { position: "absolute", visibility: "hidden", display: "block" },
+	cssShow = { position: "absolute", visibility: "hidden", display: 'block" },
 	cssNormalTransform = {
 		letterSpacing: "0",
 		fontWeight: "400"
@@ -6710,7 +6710,7 @@ function boxModelAdjustment( elem, dimension, box, isBorderBox, styles, computed
 		delta = 0;
 
 	// Adjustment may not be necessary
-	if ( box === ( isBorderBox ? "border" : "content" ) ) {
+	if ( box === ( isBorderBox ? 'border" : "content" ) ) {
 		return 0;
 	}
 
@@ -6721,19 +6721,19 @@ function boxModelAdjustment( elem, dimension, box, isBorderBox, styles, computed
 			delta += jQuery.css( elem, box + cssExpand[ i ], true, styles );
 		}
 
-		// If we get here with a content-box, we're seeking "padding" or "border" or "margin"
+		// If we get here with a content-box, we're seeking "padding" or 'border" or "margin"
 		if ( !isBorderBox ) {
 
 			// Add padding
 			delta += jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
 
-			// For "border" or "margin", add border
+			// For 'border" or "margin", add border
 			if ( box !== "padding" ) {
-				delta += jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
+				delta += jQuery.css( elem, 'border" + cssExpand[ i ] + "Width", true, styles );
 
 			// But still keep track of it otherwise
 			} else {
-				extra += jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
+				extra += jQuery.css( elem, 'border" + cssExpand[ i ] + "Width", true, styles );
 			}
 
 		// If we get here with a border-box (content + padding + border), we're seeking "content" or
@@ -6747,7 +6747,7 @@ function boxModelAdjustment( elem, dimension, box, isBorderBox, styles, computed
 
 			// For "content" or "padding", subtract border
 			if ( box !== "margin" ) {
-				delta -= jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
+				delta -= jQuery.css( elem, 'border" + cssExpand[ i ] + "Width", true, styles );
 			}
 		}
 	}
@@ -6781,7 +6781,7 @@ function getWidthOrHeight( elem, dimension, extra ) {
 		// Fake content-box until we know it's needed to know the true value.
 		boxSizingNeeded = !support.boxSizingReliable() || extra,
 		isBorderBox = boxSizingNeeded &&
-			jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
+			jQuery.css( elem, 'boxSizing", false, styles ) === 'border-box",
 		valueIsBorderBox = isBorderBox,
 
 		val = curCSS( elem, dimension, styles ),
@@ -6819,7 +6819,7 @@ function getWidthOrHeight( elem, dimension, extra ) {
 		// Make sure the element is visible & connected
 		elem.getClientRects().length ) {
 
-		isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
+		isBorderBox = jQuery.css( elem, 'boxSizing", false, styles ) === 'border-box";
 
 		// Where available, offsetWidth/offsetHeight approximate border box dimensions.
 		// Where not available (e.g., SVG), assume unreliable box-sizing and interpret the
@@ -6838,7 +6838,7 @@ function getWidthOrHeight( elem, dimension, extra ) {
 		boxModelAdjustment(
 			elem,
 			dimension,
-			extra || ( isBorderBox ? "border" : "content" ),
+			extra || ( isBorderBox ? 'border" : "content" ),
 			valueIsBorderBox,
 			styles,
 
@@ -6942,7 +6942,7 @@ jQuery.extend( {
 			}
 
 			// background-* props affect original clone's values
-			if ( !support.clearCloneStyle && value === "" && name.indexOf( "background" ) === 0 ) {
+			if ( !support.clearCloneStyle && value === "" && name.indexOf( 'background" ) === 0 ) {
 				style[ name ] = "inherit";
 			}
 
@@ -7046,7 +7046,7 @@ jQuery.each( [ "height", "width" ], function( _i, dimension ) {
 				// To avoid forcing a reflow, only fetch boxSizing if we need it (gh-3991)
 				boxSizingNeeded = scrollboxSizeBuggy || extra,
 				isBorderBox = boxSizingNeeded &&
-					jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
+					jQuery.css( elem, 'boxSizing", false, styles ) === 'border-box",
 				subtract = extra ?
 					boxModelAdjustment(
 						elem,
@@ -7063,7 +7063,7 @@ jQuery.each( [ "height", "width" ], function( _i, dimension ) {
 				subtract -= Math.ceil(
 					elem[ "offset" + dimension[ 0 ].toUpperCase() + dimension.slice( 1 ) ] -
 					parseFloat( styles[ dimension ] ) -
-					boxModelAdjustment( elem, dimension, "border", false, styles ) -
+					boxModelAdjustment( elem, dimension, 'border", false, styles ) -
 					0.5
 				);
 			}
@@ -7871,7 +7871,7 @@ jQuery.fn.extend( {
 jQuery.each( [ "toggle", "show", "hide" ], function( _i, name ) {
 	var cssFn = jQuery.fn[ name ];
 	jQuery.fn[ name ] = function( speed, easing, callback ) {
-		return speed == null || typeof speed === "boolean" ?
+		return speed == null || typeof speed === 'boolean" ?
 			cssFn.apply( this, arguments ) :
 			this.animate( genFx( name, true ), speed, easing, callback );
 	};
@@ -8358,7 +8358,7 @@ jQuery.fn.extend( {
 		var type = typeof value,
 			isValidValue = type === "string" || Array.isArray( value );
 
-		if ( typeof stateVal === "boolean" && isValidValue ) {
+		if ( typeof stateVal === 'boolean" && isValidValue ) {
 			return stateVal ? this.addClass( value ) : this.removeClass( value );
 		}
 
@@ -8392,7 +8392,7 @@ jQuery.fn.extend( {
 				}
 
 			// Toggle whole class name
-			} else if ( value === undefined || type === "boolean" ) {
+			} else if ( value === undefined || type === 'boolean" ) {
 				className = getClass( this );
 				if ( className ) {
 
@@ -9946,7 +9946,7 @@ jQuery.fn.extend( {
 	},
 
 	unwrap: function( selector ) {
-		this.parent( selector ).not( "body" ).each( function() {
+		this.parent( selector ).not( 'body" ).each( function() {
 			jQuery( this ).replaceWith( this.childNodes );
 		} );
 		return this;
@@ -10311,7 +10311,7 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 	if ( typeof data !== "string" ) {
 		return [];
 	}
-	if ( typeof context === "boolean" ) {
+	if ( typeof context === 'boolean" ) {
 		keepScripts = context;
 		context = false;
 	}
@@ -10328,7 +10328,7 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 			// Set the base href for the created document
 			// so any parsed elements with URLs
 			// are based on the document's URL (gh-2965)
-			base = context.createElement( "base" );
+			base = context.createElement( 'base" );
 			base.href = document.location.href;
 			context.head.appendChild( base );
 		} else {
@@ -10553,8 +10553,8 @@ jQuery.fn.extend( {
 
 				// Incorporate borders into its offset, since they are outside its content origin
 				parentOffset = jQuery( offsetParent ).offset();
-				parentOffset.top += jQuery.css( offsetParent, "borderTopWidth", true );
-				parentOffset.left += jQuery.css( offsetParent, "borderLeftWidth", true );
+				parentOffset.top += jQuery.css( offsetParent, 'borderTopWidth", true );
+				parentOffset.left += jQuery.css( offsetParent, 'borderLeftWidth", true );
 			}
 		}
 
@@ -10652,8 +10652,8 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 
 		// Margin is only for outerHeight, outerWidth
 		jQuery.fn[ funcName ] = function( margin, value ) {
-			var chainable = arguments.length && ( defaultExtra || typeof margin !== "boolean" ),
-				extra = defaultExtra || ( margin === true || value === true ? "margin" : "border" );
+			var chainable = arguments.length && ( defaultExtra || typeof margin !== 'boolean" ),
+				extra = defaultExtra || ( margin === true || value === true ? "margin" : 'border" );
 
 			return access( this, function( elem, type, value ) {
 				var doc;
@@ -10734,7 +10734,7 @@ jQuery.fn.extend( {
 } );
 
 jQuery.each(
-	( "blur focus focusin focusout resize scroll click dblclick " +
+	( 'blur focus focusin focusout resize scroll click dblclick " +
 	"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
 	"change select submit keydown keypress keyup contextmenu" ).split( " " ),
 	function( _i, name ) {

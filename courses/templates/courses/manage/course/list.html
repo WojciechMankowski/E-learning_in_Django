@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block title %}Moje kursy{% endblock %}
 
@@ -8,23 +8,22 @@
 <div class="module">
   {% for course in object_list %}
   <div class="course-info">
-  {{ course.modules.count }}
     <h3>{{ course.title }}</h3>
     <p>
-      <a href='{% url "course_edit" course.id %}'>Edytować</a>
-      <a href='{% url "course_delete" course.id %}'>Usunąć</a>
-      <a href='{% url "course_module_update" course.id %}'>Edytuj maduły</a>
-        {% if course.modules.count != 0 %}
-            <a href='{% url "module_content_list" course.modules.first.id %}'>
-            Zarządzaj treścią</a>
-          {% endif %}
+      <a href="{% url 'course_edit" course.id %}">Edit</a>
+      <a href="{% url 'course_delete" course.id %}">Delete</a>
+      <a href="{% url 'course_module_update" course.id %}">Edit modules</a>
+      {% if course.modules.count > 0 %}
+      <a href="{% url 'module_content_list" course.modules.first.id %}">
+        Manage contents</a>
+      {% endif %}
     </p>
   </div>
   {% empty %}
-  <p>Nie utworzyłeś jeszcze żadnych kursów.</p>
+  <p>You haven't created any courses yet.</p>
   {% endfor %}
   <p>
-    <a href='{% url "course_create" %}' class="button">Utwórz nowy kurs</a>
+    <a href="{% url 'course_create' %}" class='button">Stwórz nowy kurs</a>
   </p>
 </div>
 {% endblock %}
