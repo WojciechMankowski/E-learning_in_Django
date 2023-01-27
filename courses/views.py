@@ -1,20 +1,20 @@
-from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
-from django.db.models import Count
 from django.urls import reverse_lazy
-from django.shortcuts import redirect, get_object_or_404, render
-from django.views.generic import DetailView
+from django.shortcuts import redirect, get_object_or_404
 from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, \
                                       DeleteView
+from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, \
                                        PermissionRequiredMixin
 from django.forms.models import modelform_factory
 from django.apps import apps
-# from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
+from django.db.models import Count
+from django.core.cache import cache
+from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from students.forms import CourseEnrollForm
-from .forms import ModuleFormSet
 from .models import Course, Module, Content, Subject
+from .forms import ModuleFormSet
 
 
 class OwnerMixin(object):
@@ -114,13 +114,10 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
             self.obj = get_object_or_404(self.model,
                                          id=id,
                                          owner=request.user)
-        return  super().dispatch(request, module_id, model_name, id)
+        return super().dispatch(request, module_id, model_name, id)
 
     def get(self, request, module_id, model_name, id=None):
         form = self.get_form(self.model, instance=self.obj)
-        # form = ModuleFormSet()
-        print("GETS")
-        print(form)
         return self.render_to_response({'form': form,
                                         'object': self.obj})
 
@@ -165,7 +162,8 @@ class ModuleContentListView(TemplateResponseMixin, View):
         return self.render_to_response({'module': module})
 
 
-class ModuleOrderView(CsrfExemptMixin, JsonRequestResponseMixin,
+class ModuleOrderView(CsrfExemptMixin,
+                      JsonRequestResponseMixin,
                       View):
     def post(self, request):
         for id, order in self.request_json.items():
@@ -174,7 +172,9 @@ class ModuleOrderView(CsrfExemptMixin, JsonRequestResponseMixin,
         return self.render_json_response({'saved': 'OK'})
 
 
-class ContentOrderView(CsrfExemptMixin,JsonRequestResponseMixin,View):
+class ContentOrderView(CsrfExemptMixin,
+                       JsonRequestResponseMixin,
+                       View):
     def post(self, request):
         for id, order in self.request_json.items():
             Content.objects.filter(id=id,
@@ -182,25 +182,35 @@ class ContentOrderView(CsrfExemptMixin,JsonRequestResponseMixin,View):
                        .update(order=order)
         return self.render_json_response({'saved': 'OK'})
 
+
 class CourseListView(TemplateResponseMixin, View):
     model = Course
     template_name = 'courses/course/list.html'
 
     def get(self, request, subject=None):
-        subjects = Subject.objects.annotate(
-                total_course=Count('courses')
-        )
-        courses = Course.objects.annotate(total_models=Count("modules"))
+        subjects = cache.get('all_subjects')
+        if not subjects:
+            subjects = Subject.objects.annotate(
+                            total_courses=Count('courses'))
+            cache.set('all_subjects', subjects)
+        all_courses = Course.objects.annotate(
+                           total_modules=Count('modules'))
         if subject:
             subject = get_object_or_404(Subject, slug=subject)
-            courses = courses.filter(subject=subject)
             key = f'subject_{subject.id}_courses'
-
-
+            courses = cache.get(key)
+            if not courses:
+                courses = all_courses.filter(subject=subject)
+                cache.set(key, courses)
+        else:
+            courses = cache.get('all_courses')
+            if not courses:
+                courses = all_courses
+                cache.set('all_courses', courses)
         return self.render_to_response({'subjects': subjects,
                                         'subject': subject,
-                                        "courses": courses
-                                        })
+                                        'courses': courses})
+
 
 class CourseDetailView(DetailView):
     model = Course

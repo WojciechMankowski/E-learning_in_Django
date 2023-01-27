@@ -9,4 +9,3 @@ ModuleFormSet = inlineformset_factory(Course,
                                               'description'],
                                       extra=2,
                                       can_delete=True)
-
